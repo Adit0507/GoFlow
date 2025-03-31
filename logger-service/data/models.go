@@ -102,3 +102,15 @@ func (l *LogEntry) GetOne(id string) (*LogEntry, error) {
 
 	return &entry, nil
 }
+
+func (l *LogEntry) DropCollection() error {
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+
+	collection := client.Database("logs").Collection("logs")
+	if err := collection.Drop(ctx); err != nil {
+		return err
+	}
+
+	return nil
+}
