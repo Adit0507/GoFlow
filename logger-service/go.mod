@@ -4,7 +4,12 @@ go 1.23.2
 
 require go.mongodb.org/mongo-driver/v2 v2.1.0
 
-require github.com/montanaflynn/stats v0.7.1 // indirect
+require (
+	github.com/go-chi/chi v1.5.5 // indirect
+	github.com/go-chi/chi/v5 v5.2.1 // indirect
+	github.com/go-chi/cors v1.2.1 // indirect
+	github.com/montanaflynn/stats v0.7.1 // indirect
+)
 
 require (
 	github.com/golang/snappy v1.0.0 // indirect
