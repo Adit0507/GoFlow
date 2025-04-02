@@ -27,6 +27,15 @@ services:
     depends_on:
       - postgres  # Ensure Postgres starts before auth service
 
+  logger-service:
+    build: 
+      context: ./logger-service
+      dockerfile: logger-service.dockerfile
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+
   postgres:
     image: 'postgres:14.2'
     restart: always
@@ -52,4 +61,4 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
     volumes:
       - ./db-data/mongo/:/data/db
-  
+
