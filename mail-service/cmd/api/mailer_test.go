@@ -15,7 +15,7 @@ func TestSendSMTPMessage(t *testing.T) {
 	}
 
 	msg := Message{
-		To:      "receiver@example.com",
+		To:      "fedelio.0507@gmail.com",
 		Subject: "Test Email Subject",
 		Data: map[string]any{
 			"name":    "John Doe",
