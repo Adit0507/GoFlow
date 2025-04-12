@@ -24,8 +24,16 @@ services:
       replicas: 1
     environment:
       DSN: "host=postgres port=5432 user=postgres password=password dbname=users sslmode=disable timezone=UTC connect_timeout=5"
-    depends_on:
-      - postgres  # Ensure Postgres starts before auth service
+    # depends_on:
+    #   - postgres  # Ensure Postgres starts before auth service
+
+  listener-service:
+    build: 
+      context: ./listener-service
+      dockerfile: listener-service.dockerfile
+    deploy:
+      mode: replicated
+      replicas: 1
 
   mailer-service:
     build: 
