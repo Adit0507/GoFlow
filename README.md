@@ -1,4 +1,4 @@
-# GoFlow 🌀
+# GoFlow 🐹 🌀
 GoFlow is a hands-on microservices-based project developed using Go. It's designed to help understand and implement real-world patterns in distributed systems — including service communication, message queues, containerization, and database integration.
 
 ## 🌟 Overview
