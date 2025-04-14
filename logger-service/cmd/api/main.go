@@ -44,17 +44,9 @@ func connectToMongo() (*mongo.Client, error) {
 	return c, nil
 }
 
-// func (app *Config) serve() {
-// 	srv := &http.Server{
-// 		Addr: fmt.Sprintf(":%s", webPort),		
-// 		Handler: app.routes(),
-// 	}
-
-// 	err := srv.ListenAndServe()
-// 	if err != nil {
-// 		log.Panic("")
-// 	}
-// }
+func (app *Config) rpcListen() {
+	log.Println("Starting RPC server on port", rpcPort)
+}
 
 func main() {
 	mongoClient, err := connectToMongo()

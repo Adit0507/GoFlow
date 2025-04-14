@@ -9,6 +9,7 @@ import (
 
 type RPCServer struct{}
 
+// type of data received from rpc
 type RPCPayload struct {
 	Name string
 	Data string
