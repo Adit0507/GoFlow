@@ -62,8 +62,6 @@ func (app *Config) rpcListen() error {
 
 		go rpc.ServeConn(rpcConn)
 	}
-
-	return nil
 }
 
 func main() {

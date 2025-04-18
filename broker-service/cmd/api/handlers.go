@@ -5,7 +5,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"log"
 	"net/http"
+	"net/rpc"
 )
 
 type RequestPayload struct {
@@ -55,7 +57,7 @@ func (app *Config) HandleSubmission(w http.ResponseWriter, r *http.Request) {
 		app.authenticate(w, requestPayload.Auth)
 
 	case "log":
-		app.logEventViaRabbit(w, requestPayload.Log)
+		app.logItemViaRPC(w, requestPayload.Log)
 
 	case "mail":
 		app.sendMail(w, requestPayload.Mail)
@@ -154,7 +156,7 @@ func (app *Config) sendMail(w http.ResponseWriter, msg MailPayload) {
 	mailServiceURL := "http://mailer-service/send"
 
 	// post to mail service
-	req, err :=  http.NewRequest("POST", mailServiceURL, bytes.NewBuffer(jsonData))
+	req, err := http.NewRequest("POST", mailServiceURL, bytes.NewBuffer(jsonData))
 	if err != nil {
 		app.errorJSON(w, err)
 		return
@@ -173,7 +175,7 @@ func (app *Config) sendMail(w http.ResponseWriter, msg MailPayload) {
 	if resp.StatusCode != http.StatusAccepted {
 		app.errorJSON(w, errors.New("error calling mail service"))
 		return
-	}	
+	}
 
 	var payload jsonResponse
 	payload.Error = false
@@ -190,7 +192,7 @@ func (app *Config) logEventViaRabbit(w http.ResponseWriter, l LogPayload) {
 	}
 
 	var payload jsonResponse
-	payload.Error = 	false
+	payload.Error = false
 	payload.Message = "logged via RabbitMQ"
 
 	app.writeJSON(w, http.StatusAccepted, payload)
@@ -202,7 +204,7 @@ func (app *Config) pushToQueue(name, msg string) error {
 		return err
 	}
 
-	payload := LogPayload {
+	payload := LogPayload{
 		Name: name,
 		Data: msg,
 	}
@@ -214,4 +216,42 @@ func (app *Config) pushToQueue(name, msg string) error {
 	}
 
 	return nil
+}
+
+type RPCPayload struct {
+	Name string
+	Data string
+}
+
+func (app *Config) logItemViaRPC(w http.ResponseWriter, l LogPayload) {
+	log.Println("→ Making RPC call to logger-service...")
+	
+	client, err := rpc.Dial("tcp", "logger-service:5001")
+	if err != nil {
+		log.Println("RPC DIal error: ", err)
+		app.errorJSON(w, err)
+		return
+	}
+
+	rpcPayload := RPCPayload{
+		Name: l.Name,
+		Data: l.Data,
+	}
+
+	var res string
+	err = client.Call("RPCServer.LogInfo", rpcPayload, &res)
+	if err != nil {
+		log.Println("⛔ RPC Call error:", err)
+		app.errorJSON(w, err)
+		return
+	}
+
+	log.Println("RPC CAll success", res)
+
+	payload := jsonResponse{
+		Error:   false,
+		Message: res,
+	}
+
+	app.writeJSON(w, http.StatusAccepted, payload)
 }
