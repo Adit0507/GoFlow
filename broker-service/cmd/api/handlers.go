@@ -2,12 +2,18 @@ package main
 
 import (
 	"broker/event"
+	"broker/logs"
 	"bytes"
+	"context"
 	"encoding/json"
 	"errors"
 	"log"
 	"net/http"
 	"net/rpc"
+	"time"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 type RequestPayload struct {
@@ -177,7 +183,7 @@ type RPCPayload struct {
 
 func (app *Config) logItemViaRPC(w http.ResponseWriter, l LogPayload) {
 	log.Println("→ Making RPC call to logger-service...")
-	
+
 	client, err := rpc.Dial("tcp", "logger-service:5001")
 	if err != nil {
 		log.Println("RPC DIal error: ", err)
@@ -204,6 +210,45 @@ func (app *Config) logItemViaRPC(w http.ResponseWriter, l LogPayload) {
 		Error:   false,
 		Message: res,
 	}
+
+	app.writeJSON(w, http.StatusAccepted, payload)
+}
+
+func (app *Config) LogViaGRPC(w http.ResponseWriter, r *http.Request) {
+	var requestPayload RequestPayload
+
+	err := app.readJSON(w, r, &requestPayload)
+	if err != nil {
+		app.errorJSON(w, err)
+		return
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	conn, err := grpc.DialContext(ctx, "logger-service:50001", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		app.errorJSON(w, err)
+		return
+	}
+	defer conn.Close()
+
+	c := logs.NewLogServiceClient(conn)
+	_, err = c.WriteLog(ctx, &logs.LogRequest{
+		LogEntry: &logs.Log{
+			Name: requestPayload.Log.Name,
+			Data: requestPayload.Log.Data,
+		},
+	})
+	if err != nil {
+		app.errorJSON(w, err)
+		return
+	}
+
+	// respondin to client
+	var payload jsonResponse
+	payload.Error = false
+	payload.Message = "Logged!!!"
 
 	app.writeJSON(w, http.StatusAccepted, payload)
 }
