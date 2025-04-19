@@ -1,9 +1,32 @@
 # GoFlow 🐹🌀
- GoFlow is a hands-on microservices-based project developed using Go. It's designed to help understand and implement real-world patterns in distributed systems — including service communication, message queues, containerization, and database integration.
- 
+ GoFlow is a hands-on microservices project built using Golang, designed to explore real-world backend architecture. It features independent services communicating over both HTTP and gRPC, integrates PostgreSQL, MongoDB, and RabbitMQ, and supports local email testing via Mailhog. 
+
+With a frontend UI to demonstrate service interactions and a clean Makefile workflow for managing containers, GoFlow provides a practical look at scalable, event-driven systems.
+
+
+## 📚 Table of Contents
+
+- [🌟 Overview](#-overview)
+- [🧩 Services Overview](#-services-overview)
+  - [🔐 Authentication Service](#-authentication-service)
+  - [🔀 Broker Service](#-broker-service)
+  - [📧 Mail Service](#-mail-service)
+  - [📝 Logger Service](#-logger-service)
+  - [🎧 Listener Service](#-listener-service)
+- [🔌 Interservice Communication](#-interservice-communication)
+- [🛠️ Tech Stack](#-tech-stack)
+- [🧪 Getting Started](#-getting-started)
+- [📸 Demo](#demo)
+- [🚀 What's Next](#-whats-next)
+- [🤝 Contributing](#-contributing)
+
+
  ## 🌟 Overview
- GoFlow is composed of multiple microservices that work together in a containerized environment. Each service handles a specific responsibility and communicates with others either directly (via HTTP) or indirectly (via a message queue). The project is Dockerized and orchestrated using Docker Compose for a smooth local development experience.
- 
+GoFlow is a microservices-based backend system built using Go. It simulates real-world service orchestration with clean service boundaries, asynchronous communication, and containerized deployments.
+
+The project includes multiple services — each with a focused responsibility — connected through HTTP and now also gRPC. It leverages tools like RabbitMQ for message queues, PostgreSQL and MongoDB for persistence, and Mailhog for email testing. Everything is containerized using Docker and controlled through a simple Makefile workflow.
+
+
  ## 🧩 Services Overview
  ### 🔐 Authentication Service
  Handles user authentication and management.
@@ -29,19 +52,26 @@
  Subscribes to events from RabbitMQ.
  
  Processes incoming messages asynchronously, demonstrating event-driven architecture.
+
+### 🔌 Interservice Communication
+GoFlow now supports both:
+
+HTTP communication between Broker and services
+
+gRPC for faster, strongly-typed communication between internal services
  
  ### 🛠️ Tech Stack
- Language: Go (Golang)
+ <b>Language</b>: Go (Golang)
  
- Databases: PostgreSQL, MongoDB
+ <b>Databases</b>: PostgreSQL, MongoDB
  
- Messaging Queue: RabbitMQ
+ <b>Messaging Queue</b>: RabbitMQ
  
- Email Testing: Mailhog
+ <b>Email Testing</b>: Mailhog
  
- Containerization: Docker, Docker Compose
+ <b>Containerization</b>: Docker, Docker Compose
  
- Build: Makefile
+ <b>Build</b>: Makefile
  
  ## 🧪 Getting Started
  
@@ -79,8 +109,36 @@
  make stop
  `````````
  
- 
- 
- ## 🚧 Planned Enhancements
- gRPC Integration
- Services will eventually communicate using gRPC for better performance and strong type guarantees.
+## Demo
+
+Showing the working of <b>GoFlow's</b> microservices in action.
+
+####  <i>Broker Service </i>
+<img src="./assets/broker-service.PNG" />
+
+#### 🔒 <i>Authentication Service (Requires fixing 🔨) </i>
+<img src="./assets/auth-service.PNG" />
+
+
+#### <i>Logger Service (happening via gRPC 🔥) </i>
+<img src="./assets/logger-service.PNG" />
+
+
+#### 📧 <i>Mail Service </i> 
+<img src="./assets/mail-service.PNG" />
+
+<br />
+<b> MailHog (For Email Testing) </b>
+<img src="./assets/mailhog.PNG" />
+
+#### <i> gRPC Log </i>
+<img src="./assets/grPC-Log.PNG" />
+
+## 🚀 What's Next
+Coming up next:
+
+- A proper architecture diagram
+- Deploying on Kubernetes or Docker Swarm
+
+## 🤝 Contributing
+This is a passion project built to explore backend architecture. Contributions, suggestions, or just feedback are all welcome!
