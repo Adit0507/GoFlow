@@ -53,14 +53,14 @@ The project includes multiple services — each with a focused responsibility �
  
  Processes incoming messages asynchronously, demonstrating event-driven architecture.
 
-### 🔌 Interservice Communication
+## 🔌 Interservice Communication
 GoFlow now supports both:
 
 HTTP communication between Broker and services
 
 gRPC for faster, strongly-typed communication between internal services
  
- ### 🛠️ Tech Stack
+ ## 🛠️ Tech Stack
  <b>Language</b>: Go (Golang)
  
  <b>Databases</b>: PostgreSQL, MongoDB
