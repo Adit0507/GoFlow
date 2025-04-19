@@ -6,19 +6,19 @@ With a frontend UI to demonstrate service interactions and a clean Makefile work
 
 ## 📚 Table of Contents
 
-- [🌟 Overview](#-overview)
-- [🧩 Services Overview](#-services-overview)
+- 🌟[ Overview](#-overview)
+- 🧩[Services Overview](#-services-overview)
   - [🔐 Authentication Service](#-authentication-service)
-  - [🔀 Broker Service](#-broker-service)
-  - [📧 Mail Service](#-mail-service)
-  - [📝 Logger Service](#-logger-service)
-  - [🎧 Listener Service](#-listener-service)
-- [🔌 Interservice Communication](#-interservice-communication)
-- [🛠️ Tech Stack](#-tech-stack)
-- [🧪 Getting Started](#-getting-started)
-- [📸 Demo](#demo)
-- [🚀 What's Next](#-whats-next)
-- [🤝 Contributing](#-contributing)
+  - 🔀 [Broker Service](#-broker-service)
+  - 📧[ Mail Service](#-mail-service)
+  - 📝[ Logger Service](#-logger-service)
+  - 🎧[ Listener Service](#-listener-service)
+- 🔌[ Interservice Communication](#-interservice-communication)
+- 🛠️ [Tech Stack](#-tech-stack)
+- 🧪[ Getting Started](#-getting-started)
+- 📸[ Demo](#demo)
+- 🚀[ What's Next](#-whats-next)
+- 🤝[ Contributing](#-contributing)
 
 
  ## 🌟 Overview
@@ -113,25 +113,25 @@ gRPC for faster, strongly-typed communication between internal services
 
 Showing the working of <b>GoFlow's</b> microservices in action.
 
-####  <i>Broker Service </i>
+###  <i>Broker Service </i>
 <img src="./assets/broker-service.PNG" />
 
-#### 🔒 <i>Authentication Service (Requires fixing 🔨) </i>
+### 🔒 <i>Authentication Service (Requires fixing 🔨) </i>
 <img src="./assets/auth-service.PNG" />
 
 
-#### <i>Logger Service (happening via gRPC 🔥) </i>
+### <i>Logger Service (happening via gRPC 🔥) </i>
 <img src="./assets/logger-service.PNG" />
 
 
-#### 📧 <i>Mail Service </i> 
+### 📧 <i>Mail Service </i> 
 <img src="./assets/mail-service.PNG" />
 
 <br />
 <b> MailHog (For Email Testing) </b>
 <img src="./assets/mailhog.PNG" />
 
-#### <i> gRPC Log </i>
+### <i> gRPC Log </i>
 <img src="./assets/grPC-Log.PNG" />
 
 ## 🚀 What's Next
