@@ -143,7 +143,6 @@ Showing the working of <b>GoFlow's</b> microservices in action.
 ## 🚀 What's Next
 Coming up next:
 
-- A proper architecture diagram
 - Deploying on Kubernetes or Docker Swarm
 
 ## 🤝 Contributing
