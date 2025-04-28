@@ -14,6 +14,7 @@ With a frontend UI to demonstrate service interactions and a clean Makefile work
   - 📝[ Logger Service](#-logger-service)
   - 🎧[ Listener Service](#-listener-service)
 - 🔌[ Interservice Communication](#-interservice-communication)
+- 🏛️ [ Architecture Diagram ](#-architecture-diagram)
 - 🛠️ [Tech Stack](#-tech-stack)
 - 🧪[ Getting Started](#-getting-started)
 - 📸[ Demo](#demo)
@@ -59,7 +60,12 @@ GoFlow now supports both:
 HTTP communication between Broker and services
 
 gRPC for faster, strongly-typed communication between internal services
- 
+
+
+## 🏛️ Architecture Diagram 
+
+ ![20](https://github.com/user-attachments/assets/1a8e6bb5-c279-49ce-b790-94caf63ed6e1)
+
  ## 🛠️ Tech Stack
  <b>Language</b>: Go (Golang)
  
