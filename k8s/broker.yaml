@@ -33,7 +33,7 @@ metadata:
   name: broker-service
 spec:
   selector:
-    name: broker-service
+    app: broker-service
   ports:
     - protocol: TCP
       name: main-port
