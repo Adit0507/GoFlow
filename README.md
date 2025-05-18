@@ -1,7 +1,10 @@
 # GoFlow 🐹🌀
- GoFlow is a hands-on microservices project built using Golang, designed to explore real-world backend architecture. It features independent services communicating over both HTTP and gRPC, integrates PostgreSQL, MongoDB, and RabbitMQ, and supports local email testing via Mailhog. 
+GoFlow simulates real-world service orchestration with clean service boundaries, asynchronous communication, and containerized deployments.
 
-With a frontend UI to demonstrate service interactions and a clean Makefile workflow for managing containers, GoFlow provides a practical look at scalable, event-driven systems.
+The project includes multiple services—each with a focused responsibility—connected through HTTP and gRPC. It leverages RabbitMQ for message queues, PostgreSQL and MongoDB for persistence, and Mailhog for email testing. Everything is containerized with Docker **or** orchestrated with Kubernetes and controlled through a simple Makefile workflow.
+
+
+A lightweight front-end UI showcases the interactions, while a clean Makefile workflow (or a single kubectl apply -f k8s/) spins everything up, giving you a practical view of scalable, event-driven systems in action.
 
 
 ## 📚 Table of Contents
@@ -17,8 +20,9 @@ With a frontend UI to demonstrate service interactions and a clean Makefile work
 - 🏛️ [ Architecture Diagram ](#-architecture-diagram)
 - 🛠️ [Tech Stack](#-tech-stack)
 - 🧪[ Getting Started](#-getting-started)
+- 📦 [Kubernetes Manifests](#-kubernetes-manifests)
+- 📊 [Kubernetes Dashboard](#-kubernetes-dashboard)
 - 📸[ Demo](#demo)
-- 🚀[ What's Next](#-whats-next)
 - 🤝[ Contributing](#-contributing)
 
 
@@ -114,7 +118,37 @@ gRPC for faster, strongly-typed communication between internal services
  `````````
  make stop
  `````````
- 
+
+
+## 📦 Kubernetes Manifests
+Every microservice now ships with a Deployment/Service manifest in k8s/, a.
+Spin up the full stack on any Kubernetes cluster (e.g., Minikube) with:
+
+``````
+kubectl apply -f k8s/
+kubectl apply -f ingress.yaml
+``````
+- Each <b>YAML</b> (authentication.yaml, broker.yaml, rabbit.yaml, etc.) creates a Deployment plus its corresponding Service, bringing all components online just like Docker Compose.
+
+- ingress.yaml creates my-ingress, which routes traffic from two hostnames:
+     - front-end.info → front-end Service :80
+
+    - broker-service.info → broker-service Service :8080
+The nginx.ingress.kubernetes.io/rewrite-target: /$1 annotation keeps URLs clean.
+
+## 📊 Kubernetes Dashboard
+After applying the manifests, verify cluster health with:
+
+``````
+minikube dashboard
+``````
+
+## 🧩 Kubernetes Workloads
+
+<img src="/assets/kubernetes-dashboard.png">
+
+<i>Ik the Auth service is failing for now,fixing it 😂</i>
+
 ## Demo
 
 Showing the working of <b>GoFlow's</b> microservices in action.
@@ -140,10 +174,7 @@ Showing the working of <b>GoFlow's</b> microservices in action.
 ### <i> gRPC Log </i>
 <img src="./assets/grPC-Log.PNG" />
 
-## 🚀 What's Next
-Coming up next:
 
-- Deploying on Kubernetes or Docker Swarm
 
 ## 🤝 Contributing
 This is a passion project built to explore backend architecture. Contributions, suggestions, or just feedback are all welcome!
