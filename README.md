@@ -147,8 +147,6 @@ minikube dashboard
 
 <img src="/assets/kubernetes-dashboard.png">
 
-<i>Ik the Auth service is failing for now,fixing it 😂</i>
-
 ## Demo
 
 Showing the working of <b>GoFlow's</b> microservices in action.
@@ -156,7 +154,7 @@ Showing the working of <b>GoFlow's</b> microservices in action.
 ###  <i>Broker Service </i>
 <img src="./assets/broker-service.PNG" />
 
-### 🔒 <i>Authentication Service (Requires fixing 🔨) </i>
+### 🔒 <i>Authentication Service </i>
 <img src="./assets/auth-service.PNG" />
 
 
